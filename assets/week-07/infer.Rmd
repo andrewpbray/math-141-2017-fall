@@ -1,0 +1,182 @@
+---
+title: "The Building Blocks of Inference"
+output:
+  html_document:
+    css: ../lab.css
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r echo = FALSE, eval = FALSE}
+Warm-up
+=======
+
+Goals: recall what it's like to work with chained commands as in dplyr, queue up syntax for computing pvalues.
+
+Put students into pairs and have them work on the following prompts, written on the board. Their work does not need to be recorded in a lab Rmd.
+
+> Using the `survey141` data, for students in each year (freshman, sophomore, etc), form a dplyr chain that computes the proportions of students that responded that walking was their most used transportation method.
+> What is the output at each link in the chain? Try breaking the chain to find out.
+> Find the proportion of students who applied to more than 10 colleges.
+
+Once they're mostly done, write each code chunk up on board.
+```
+
+```{r echo = FALSE, eval = FALSE}
+Infer
+=====
+  
+Return to example of Mythbusters: is yawning contagious? And write out head of yawn dataset on board. Ask how to compute \hat{d} = \hat{p}_s - \hat{p}_ns using a dplyr chain. Write the chain on the board
+
+obs <- yawn %>%
+  group_by(group) %>%
+  summarize(p_yawn = mean(response == "yawn")) %>%
+  summarize(d = diff(p_yawn))
+
+Next write hypotheses using d = 0 as the null. The question is: how to we find the null distribution?
+  
+Write out and talk through diagram from github.com/andrewpbray/infer and write each function name beneath each component with open parens. Assign each pair to look into documentation of one of the key functions and identify the arguments. Ask them to share and fill in the arguments appropriate to the yawn example. You should come up with this:
+  
+d_hats <- yawn %>%
+  specify(response ~ group) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 100, type = "permute") %>%
+  calculate(stat = "diff in props")
+
+Next, turn to projector and live-code the full chain that they suggested to create the null distribution. Ask how to visualize the distribution of the stat. Write their solution on the board. They might come up with:
+  
+d_hats %>%
+  ggplot(aes(x = stat)) +
+  geom_histogram()
+
+Show that you can also use the shortcut:
+  
+visualize(d_hats)
+
+Now in pairs set them loose to find the p-value. When you report back and share, you might see:
+  
+mean(d_hats$stat < obs$d) * 2
+
+Conclude that the H0 is just fine; no need to reject. Then let them work on the next phase of the lab by themselves. Maintain an r script with the following on the board for students to reference.
+```
+
+```{r echo = FALSE, eval = FALSE}
+# load packages
+library(tidyverse)
+library(oilabs)
+library(infer)
+data(yawn)
+
+# compute observed test statistic
+obs <- yawn %>%
+  group_by(group) %>%
+  summarize(p_yawn = mean(response == "yawn")) %>%
+  summarize(d = diff(p_yawn))
+
+# compute null distribution
+d_hats <- yawn %>%
+  specify(response ~ group) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 100, type = "permute") %>%
+  calculate(stat = "diff in props")
+
+# visualize
+visualize(d_hats)
+
+# compute p-value
+d_hats %>%
+  summarize(pvalue = mean(stat < obs$d)*2)
+
+```
+
+
+
+
+
+In this lab you will use the following three packages:
+
+```{r}
+library(tidyverse)
+library(oilabs)
+library(infer)
+```
+
+## Examples, revisited
+
+In lecture we've gone through several examples of hypothesis tests on the blackboard. Now you'll get the chance to get your hands on the data and construct those tests.
+
+1. Using the `promote` data set,
+    - Write the null and alternative hypothesis in symbolic notation (in markdown).
+    - Compute the observed test statistic.
+    - Construct and save the null distribution using `infer`.
+    - Visualize the null distribution.
+    - Compute the p-value.
+    
+2. Using the `millenials` data set,
+    - Write the null and alternative hypothesis in symbolic notation.
+    - Compute the observed test statistic.
+    - Construct and save the null distribution.
+    - Visualize the null distribution.
+    - Compute the p-value.
+    
+3. Using the `curry` data set,
+    - Write the null and alternative hypothesis in symbolic notation.
+    - Compute the observed test statistic.
+    - Construct and save the null distribution.
+    - Visualize the null distribution.
+    - Compute the p-value.
+    
+## Synthesizing the process
+
+4. How would you expect the plots of your null distribution to change if `reps` were increased to 1000? Give it a try.
+
+5. In which of the examples above would you be comfortable using the Normal curve to describe the null distribution? 
+
+
+## Survey Inference
+
+6. Return to the `survey141` data and select one or two columns to study. Conduct a hypothesis test in the form that you've seen in this lab and be explicit about each of the 5 steps that you went through for previous examples. Additionally, please interpret the p-value: what does this mean in the context of our sample of Reedies and the population of Reedies in general?
+
+Note that you may need to dust off your `dplyr` skills in order work with variables that have only two levels. One approach is to `filter` the data but the other is to use `fct_recode` or `fct_collapse` in the `forcats` package.
+
+```{r eval = FALSE, echo = FALSE}
+data(yawn)
+d_hats <- yawn %>%
+  specify(response ~ group) %>% 
+  hypothesize(null = "independence") %>%
+  generate(reps = 100, type = "permute") %>%
+  calculate(stat = "diff in props", success = "no yawn")
+
+obs <- yawn %>%
+  group_by(group) %>%
+  summarize(p_favor = mean(response == "yawn")) %>%
+  summarize(d = diff(p_favor))
+
+mean(d_hats < obs$d) * 2
+
+data(promote)
+d <- promote %>%
+  specify(decision ~ sex) %>% 
+  hypothesize(null = "independence") %>%
+  generate(reps = 100, type = "permute") %>%
+  calculate(stat = "diff in props", success = "promote") %>%
+  visualize()
+
+data(millenials)
+millenials %>%
+  specify(response ~ NULL) %>% 
+  hypothesize(null = "point", p = c("favor" = .5)) %>%
+  generate(reps = 100, type = "simulate") %>%
+  calculate(stat = "prop", success = "favor") %>%
+  visualize()
+
+```
+
+

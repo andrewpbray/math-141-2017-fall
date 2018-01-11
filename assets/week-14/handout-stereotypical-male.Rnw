@@ -1,0 +1,46 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+
+\pagestyle{fancy}
+
+\lhead{\textsc{MATH 141}}
+\chead{\textsc{Article Discussion}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\title{MATH 141:\\Intro to Probability and Statistics}
+
+\begin{document}
+
+\begin{enumerate}
+
+\item Did you find this blog post compelling or dull? Overly technical or too breezy?
+
+\item Regarding the empirical claims that are made, were these surprising? Do you find yourself wholly convinced of the author's claims or still skeptical? Why?
+
+\item \noindent \textbf{Where are the gender differences?} Find the spot in this article where they conclude that "there is zero statistically significant gender difference in mental rotation ability" (as cited by the blog post)? This uses a two-way ANOVA hypothesis test. What other test could you use to compare the performance of men and women than were primed male? Please carry out this test. Do you come to the same conclusion?
+
+\paragraph{Towards the end of the blog post...}
+
+\item What conclusions do you draw from the bar plot with the x-axis labelled as "Test Characterization"?
+
+\end{enumerate}
+
+\end{document}

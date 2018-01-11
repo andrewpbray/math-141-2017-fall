@@ -1,0 +1,114 @@
+---
+title: "Inference for Categorical Data"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+## Warm-up
+
+Let's say I survey the class and ask "Did you leave Reed College to travel during Fall Break". Out of 23 students, 14 of them or 60.8% said yes. Is this consistent with a claim that half of Reed students travel over fall break? 
+
+1. Please write the `infer` code that would test this claim.
+2. Please write the `infer` code that compute a confidence interval for our statistic.
+
+- Dataset name: `fallbreak`
+- Column name: `travel`, which takes values `yes` and `no`.
+
+
+# Making decisions with confidence intervals
+
+# Extending to two proportions
+
+
+## Question
+
+Scientists predict that global warming may have big effects on the polar regions within the next 100 years. One of the possible effects is that the northern ice cap may completely melt. Would this bother you a great deal, some, a little, or not at all if it actually happened?
+
+1. A great deal
+2. Some
+3. A little
+4. Not at all
+
+
+
+## {.build}
+
+*Are Reed Students different from a random sample of Americans?*
+
+GSS Survey data (2010)
+
+response     | count
+-------------|------
+A great deal | 454 
+Some         | 124 
+A little     | 52 
+Not at all   | 50
+Total        | 680
+
+$$\hat{p}_{US} = 454/680 \approx 0.67$$
+
+
+## {.build}
+
+### Parameter of interest
+Difference between the proportions of *all* Reed students and *all* Americans 
+who would be bothered a great deal by the northern ice cap completely melting.
+
+$$p_{Reed} - p_{US}$$
+
+### Point estimate
+Difference between the proportions of *sampled* Reed students and *sampled*
+Americans who would be bothered a great deal by the northern ice cap completely melting.
+
+$$\hat{p}_{Reed} - \hat{p}_{US}$$
+
+
+## Constructing a CI for $p_1 - p_2$ {.build}
+
+Details same as before:
+
+1. check conditions for using the normal approximation
+2. point estimate $\pm$ margin of error
+3. standard error
+
+$$ SE_{\hat{p}_1 - \hat{p}_2} = \sqrt{\frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2}} $$
+
+We swap in $\hat{p}_1$ and $\hat{p}_1$ for $p_1$ and $p_2$.
+
+
+
+## Data input
+
+```{r eval = FALSE, echo = FALSE}
+library(tidyverse)
+polar <- data.frame(concerned = c(rep("A great deal", 454), 
+                                  rep("Some", 124), 
+                                  rep("A little", 52), 
+                                  rep("Not at all", 50), 
+                                  rep("A great deal", 1), 
+                                  rep("Some", 1), 
+                                  rep("A little", 1), 
+                                  rep("Not at all", 1)),
+                    group = c(rep("Americans", 680), rep("Reedies", 4)))
+
+library(forcats)
+polar2 <- polar %>%
+  mutate(greatdealconcerned = fct_recode(concerned,
+    yes = "A great deal",
+    no  = "Some",
+    no  = "A little", 
+    no  ="Not at all"))
+
+```
+
+
+## Bootstrap CI
+
+```{r eval = FALSE, echo = FALSE}
+polar2 %>%
+  specify(greatdealconcerned ~ group) %>%
+  generate(reps = 100, type = "permute") %>%
+  calculate(stat = "diff in props")
+```
+

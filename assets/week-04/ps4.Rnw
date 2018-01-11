@@ -1,0 +1,81 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+\usepackage{enumerate,multirow}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+
+\pagestyle{fancy}
+
+\lhead{\textsc{MATH 141}}
+\chead{\textsc{Problem Set 4}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\title{MATH 141:\\Intro to Probability and Statistics}
+\date{Fall 2017}
+
+\rhead{\textsc{Fall 2017}}
+
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+\begin{enumerate}
+\item At a university, 13\% of 
+students smoke.
+\begin{enumerate}[(a)]
+\item Calculate the expected number of smokers in a random sample of 100 students 
+from this university.
+\item The university gym opens at 9 am on Saturday mornings. One Saturday morning 
+at 8:55 am there are 27 students outside the gym waiting for it to open. Should 
+you use the same approach from part (a) to calculate the expected number of 
+smokers among these 27 students?
+\end{enumerate}
+
+
+\item Consider the following card game 
+with a well-shuffled deck of cards. If you draw a red card, you win nothing. If 
+you get a spade, you win \$5. For any club, you win \$10 plus an extra \$20 for 
+the ace of clubs.
+\begin{enumerate}[(a)]
+\item Define a random variable that describes the amount you win at this game, with the possible values that it can take along with their probabilities. Also, find 
+the expected winnings for a single game and the standard deviation of the 
+winnings.
+\item What is the maximum amount you would be willing to pay to play this game? 
+Explain your reasoning.
+\end{enumerate}
+
+
+\item An airline charges the following 
+baggage fees: \$25 for the first bag and \$35 for the second. Suppose 54\% of 
+passengers have no checked luggage, 34\% have one piece of checked luggage and 
+12\% have two pieces. We suppose a negligible portion of people check more than 
+two bags.
+\begin{enumerate}[(a)]
+\item Define a random variable that describes the baggage fee revenue for a single passenger, with the possible values that it can take along with their probabilities.  The compute the average revenue per passenger, and 
+compute the corresponding standard deviation.
+\item About how much revenue should the airline expect for a flight of 120 
+passengers? With what standard deviation? Note any assumptions you make and if 
+you think they are justified.
+\end{enumerate}
+
+\item \textbf{Reading} Please read this Wikipedia Article: \url{https://en.wikipedia.org/wiki/Monty_Hall_problem}.Were you surprised/incredulous at Marilyn's solution? If you were to explain the solution to a friend, which of the offered explanations do you find the most succinct/convincing?
+
+\end{enumerate}
+
+
+\end{document}

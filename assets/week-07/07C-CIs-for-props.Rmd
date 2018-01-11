@@ -1,0 +1,133 @@
+---
+title: "Inference for Categorical Data"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+options(digits=3)
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(oilabs)
+library(infer)
+data(atheism)
+data(millenials)
+set.seed(358)
+```
+
+
+## Millennials and Marriage {.build}
+
+In the national debate on same-sex marriage, it is commonly stated that half of all americans favor same-sex marriage. In 2014, Pew research conducted a poll of millennials (americans born after 1980) and found that 66% answered yes when asked: “Do you favor same-sex marriage?” The poll was a random sample of 75 millennials. Does this poll provide convincing evidence that the opinion of millennials is different from those of americans at large?
+
+```{r}
+head(millenials)
+```
+
+
+## Bootstrapping p-hat I {.build.smaller}
+
+```{r}
+millenials %>%
+  specify(response = response) %>%
+  generate(reps = 100, type = "bootstrap")
+```
+
+## Bootstrapping p-hat II {.build.smaller}
+
+```{r}
+millenials %>%
+  specify(response = response) %>%
+  generate(reps = 100, type = "bootstrap") %>%
+  calculate(stat = "prop", success = "favor")
+```
+
+## Bootstrapping p-hat III {.build .smaller}
+
+```{r}
+millenials %>%
+  specify(response = response) %>%
+  generate(reps = 100, type = "bootstrap") %>%
+  calculate(stat = "prop", success = "favor") %>%
+  visualize()
+```
+
+## Bootstrapping p-hat III {.build.smaller}
+
+```{r}
+boot_se <- millenials %>%
+  specify(response = response) %>%
+  generate(reps = 100, type = "bootstrap") %>%
+  calculate(stat = "prop", success = "favor") %>%
+  summarize(se = sd(stat)) %>%
+  as.numeric()
+boot_se
+```
+
+## Constructing a CI {.build}
+
+$$ \hat{p} \pm 1.96 \times SE $$
+```{r}
+p_hat <- millenials %>%
+  summarize(p = mean(response == "favor")) %>%
+  as.numeric()
+c(p_hat - 1.96 * boot_se, p_hat + 1.96 * boot_se)
+```
+
+$$ .67 \pm 1.96 \times .057$$
+
+# Normal Approximation Method
+
+## Checking Conditions {.build}
+  
+$\hat{p} \sim N(\mu = p, \sigma = \sqrt{\frac{p(1-p)}{n}})$ if
+
+1. Observations are independent
+2. The number of observed successes and failures is more than 10.
+
+$$
+n\hat{p} \ge 10 \\
+n(1 - \hat{p}) \ge 10
+$$
+
+## Question {.build}
+
+We are given that $n = 75, \hat{p} = 0.67$. Which of the
+below is the correct calculation of the 95% confidence interval?
+
+1. $0.67 \pm 1.96 \sqrt{(.67 \times 0.33)/75}$
+2. $0.67 \pm 1.65 \sqrt{(.67 \times 0.33)/75}$
+3. $0.67 \pm 1.96 ((.67 \times 0.33)/\sqrt{75})$
+4. $67 \pm 1.96 \sqrt{(67 \times 33)/75}$
+
+
+## Constructing a CI {.build .smaller}
+
+
+```{r construct}
+nrow(millenials) * p_hat
+nrow(millenials) * (1 - p_hat)
+SE <- sqrt((p_hat * (1 - p_hat)) / nrow(millenials))
+z_star <- qnorm(.025) # for a 95% CI
+z_star
+MoE <- z_star * SE
+c(p_hat - MoE, p_hat + MoE)
+```
+
+
+## Choosing between methods {.build}
+
+### Bootstrap SE
+
+- Must have sufficiently large sample (n > 30)
+- Can be calculated for any statistic
+
+### Normal approximation
+
+- Must satisfy assumptions (independence, sample size)
+- Most commonly used (still)
+
+# Interpreting a confidence interval

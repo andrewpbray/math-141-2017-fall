@@ -1,0 +1,249 @@
+---
+title: "SLR to MLR"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+options(digits=3)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+```
+
+## Example: shipping books {.build}
+
+<center>
+<img src="../figs/pile-of-books.jpg" width = 500>
+</center>
+
+When you buy a book off of Amazon, you get a quote for how much it
+costs to ship. This is based on the weight of the book. If you
+didn't know the weight a book, what other characteristics of it
+could you measure to help predict weight?
+
+```{r getdata, echo = FALSE, message=FALSE}
+library(DAAG)
+data(allbacks)
+books <- allbacks[, c(3, 1, 4)]
+```
+
+
+## Example: shipping books
+```{r plotallbacks}
+qplot(x = volume, y = weight, data = books)
+```
+
+
+## Example: shipping books {.smaller}
+
+```{r fitm1, echo = FALSE}
+m1 <- lm(weight ~ volume, data = books)
+```
+
+```{r plotallbackswline}
+qplot(x = volume, y = weight, data = books) + 
+  geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "orchid")
+```
+
+
+## Fitting the linear model {.build .smaller}
+
+```{r}
+m1 <- lm(weight ~ volume, data = books)
+summary(m1)
+```
+
+### Q1: What is the equation for the line?
+
+$$ \hat{y} = 107.7 + 0.708 x $$
+$$ \widehat{weight} = 107.7 + 0.708 volume $$
+
+
+## {.build}
+
+Q2: Does this appear to be a reasonable setting to apply linear regression?
+
+We need to check:
+
+1. Linear trend
+2. Independent observations
+3. Normal residuals
+4. Equal variance
+
+
+## Residual Plot
+
+```{r resplot}
+qplot(x = .fitted, y = .stdresid, data = m1)
+```
+
+
+## QQ plot
+
+```{r resplot2, warning=FALSE}
+qplot(sample = .stdresid, data = m1, stat = "qq") +
+  geom_abline()
+```
+
+
+## {.build .smaller}
+
+### Q3: Is volume a significant predictor?
+
+```{r sumtable}
+summary(m1)
+```
+
+Q4: How much of the variation in weight is explained by the model containing volume?
+
+
+## Multiple Regression {.build}
+
+Allows us create a model to explain one $numerical$ variable, the response, as a linear function of many explanatory variables that can be both $numerical$ and
+$categorical$.
+
+We posit the true model:
+
+$$ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \ldots + \beta_p X_p + \epsilon; \quad \epsilon \sim N(0, \sigma^2) $$
+
+We use the data to estimate our fitted model:
+
+$$ \hat{Y} = b_0 + b_1 X_1 + b_2 X_2 + \ldots + b_p X_p $$
+
+
+## Estimating $\beta_0, \beta_1$ etc.
+
+In least-squares regression, we're still finding the estimates that minimize
+the sum of squared residuals.
+
+$$ e_i = y_i - \hat{y}_i $$
+
+$$ \sum_{i = 1}^n e_i^2 $$
+
+And yes, they have a closed-form solution.
+
+$$ \mathbf{b} = (X'X)^{-1}X'Y $$
+
+In R:
+```{r eval = FALSE}
+lm(Y ~ X1 + X2 + ... + Xp, data = mydata)
+```
+
+
+
+## Example: shipping books {.build}
+
+```{r plotcolors}
+qplot(x = volume, y = weight, color = cover, data = books)
+```
+
+
+## Example: shipping books {.build .smaller}
+
+```{r}
+m2 <- lm(weight ~ volume + cover, data = books)
+summary(m2)
+```
+
+### How do we interpret these estimates?
+
+
+#
+
+
+## Example: shipping books {.build .smaller}
+
+```{r echo = FALSE}
+qplot(x = volume, y = weight, color = cover, data = books) +
+  geom_abline(intercept = m2$coef[1], slope = m2$coef[2], col = 2) +
+  geom_abline(intercept = m2$coef[1] + m2$coef[3], slope = m2$coef[2], col = 4)
+```
+
+
+## MLR slope interpretation {.build}
+
+The slope corresponding to the dummy variable tell us:
+
+- How much vertical separation there is between our lines
+- How much `weight` is expected to increase if `cover` goes
+from 0 to 1 and `volume` is left unchanged.
+
+Each $b_i$ tells you how much you expect the $Y$ to change when you change the
+$X_i$, while **holding all other variables constant**.
+
+
+## {.smaller .build}
+
+```{r}
+summary(m2)
+```
+
+- Is the difference between cover types significant?
+- How much of the variation in weight is explained by a model containing both
+volume and cover?
+
+
+##
+
+```{r}
+summary(m2)$coef
+qt(.025, df = nrow(books) - 3)
+```
+
+Which of the follow represents the appropriate 95% CI for `coverpb`?
+
+1. $197 \pm 1.96 \times 59.19$
+2. $-184 \pm 2.18 \times 40.5$
+3. $-184 \pm -4.55 \times 40.5$
+
+
+## Extending the model
+
+```{r echo = FALSE}
+qplot(x = volume, y = weight, color = cover, data = books) +
+  geom_abline(intercept = m2$coef[1], slope = m2$coef[2], col = 2) +
+  geom_abline(intercept = m2$coef[1] + m2$coef[3], slope = m2$coef[2], col = 4)
+```
+
+The two cover types have different intercepts. Do they share the same slope?
+
+
+#
+
+
+## Extending the model
+
+```{r echo = FALSE}
+qplot(x = volume, y = weight, color = cover, data = books) +
+  stat_smooth(method = "lm", se = FALSE)
+```
+
+
+## {.smaller .build}
+
+```{r}
+m3 <- lm(weight ~ volume + cover + volume:cover, data = books)
+summary(m3)
+```
+
+Do we have evidence that two types of books have different relationships
+between volume and weight?
+
+
+## Take home messages {.build}
+
+- There is a statistically significant relationship between volume and weight.
+- There is a statistically significant difference in weight between paperback
+and hardcover books, when controlling for volume.
+- There is no strong evidence that the relationship between volume and weight
+differs betwen paperbacks and hardbacks.
+
+This is **inference**, which required **valid models**. We'll check diagnostics 
+next time.
+
+

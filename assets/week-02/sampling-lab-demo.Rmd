@@ -1,0 +1,61 @@
+---
+title: "Sampling Demo"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(mosaic)
+library(tidyverse)
+```
+## Stratified sampling {.smaller}
+
+```{r strat-samp}
+teams <- c(rep("yankees", 40), 
+           rep("padres", 40), 
+           rep("mariners", 40), 
+           rep("dodgers", 40))
+salary <- c(rnorm(40, mean = 25), 
+            rnorm(40, 16), 
+            rnorm(40, 23), 
+            rnorm(40, 15))
+df <- data.frame(teams, salary)
+head(df)
+```
+
+
+## Population view
+
+```{r plot-strat, echo = FALSE, message=FALSE, warning=FALSE}
+ggplot(df, aes(x = salary, color = teams)) + geom_density() + geom_rug()
+```
+
+## SRS vs Stratified {.smaller}
+
+```{r sim}
+# population mean
+mean(df$salary)
+# SRS
+df %>% sample_n(40) %>% summarize(mean(salary))
+# Stratified sample
+df %>% 
+  group_by(teams) %>% 
+  sample_n(10) %>% 
+  ungroup() %>%
+  summarize(mean(salary))
+```
+
+## Long-run performance
+
+```{r comp, echo=FALSE, message = FALSE}
+SRS <- do(1000) * mean(~salary, data = sample(df, 40))
+STR <- do(1000) * mean(~salary, data = rbind(sample(subset(df, teams == "yankees"), 10),
+                                             sample(subset(df, teams == "padres"), 10),
+                                             sample(subset(df, teams == "mariners"), 10),
+                                             sample(subset(df, teams == "dodgers"), 10)))
+sim <- data.frame(salary = rbind(SRS, STR), method = rep(c("SRS", "STR"), each = 1000))
+ggplot(sim, aes(x = mean, color = method)) +
+  geom_density() +
+  annotate("segment", x = mean(df$salary), xend = mean(df$salary),
+           y = 0, yend = 3, color = "darkgrey", linetype = 2)
+```

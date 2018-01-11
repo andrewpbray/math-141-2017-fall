@@ -1,0 +1,161 @@
+```{r setup, include=FALSE}
+# DO NOT ALTER CODE IN THIS CHUNK
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 3)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(pnwflights14)
+```
+
+* * *
+
+#### Exercise 1: 
+
+```{r ex1plots, message=FALSE, warning=FALSE}
+qplot(x = dep_delay, data = flights, geom = "histogram")
+qplot(x = dep_delay, data = flights, geom = "histogram", binwidth = 15)
+qplot(x = dep_delay, data = flights, geom = "histogram", binwidth = 150)
+```
+
+As `binwidth` goes from `default` to `15`, more granularity is seen and the pattern is more prominent.  As `binwidth` increases to `150`, some of the pattern is lost.
+
+You can also change the `color` and `fill` of the bins as you wish:
+
+```{r colorplot, message=FALSE, warning=FALSE}
+qplot(x = dep_delay, data = flights, 
+  geom = "histogram",
+  color = I("black"),
+  fill = I("goldenrod"))
+```
+
+
+#### Exercise 2:
+
+```{r filter_data}
+pdx_flights <- filter(flights, origin == "PDX")
+sfo_feb_flights <- filter(pdx_flights, dest == "SFO" & month == 2)
+```
+
+Use the command given to create `sfo_feb_flights`.  You could either use the `dim` function from Lab 1 or `summarise`/`summarize` in the `dplyr` package.
+
+```{r get_count}
+sfo_feb_flights %>% summarize(count = n())
+```
+
+There are `r dim(sfo_feb_flights)[1]` flights meeting this criteria.
+
+#### Exercise 3:
+
+```{r ex3plot, message=FALSE, warning=FALSE}
+qplot(x = arr_delay,
+  data = sfo_feb_flights,
+  binwidth = 50,
+  color = I("black"),
+  fill = I("red"))
+```
+
+The distribution of _arrival delays_ is right-skewed.  We should, therefore, use the median and IQR as summary statistics instead of measures like mean and standard deviation which are heavily influenced by outliers.
+
+```{r ex3sum}
+sfo_feb_flights %>% 
+  summarize(media_ad = median(arr_delay, na.rm = TRUE),
+    iqr_ad = IQR(arr_delay, na.rm = TRUE)
+  )
+```
+
+
+#### Exercise 4:
+
+The data appears before the pipe symbol instead of the first argument in the `filter` function.  Additionally, the new piping syntax allows us to chain multiple functions together so we don't need to create the intermediate data frame of `pdx_flights` but instead pass the newly filtered data frame as the next argument to `summarise`.
+
+#### Exercise 5:
+
+```{r ex5}
+sfo_feb_flights %>%
+  group_by(carrier) %>%
+  summarise(median_ad = median(arr_delay, na.rm = TRUE),
+            iqr_ad = IQR(arr_delay, na.rm = TRUE))
+```
+
+Based on the IQR values, `UA` (United Airlines Inc.) has the most variable arrival delays.
+
+#### Exercise 6:
+
+```{r ex6}
+flights %>%
+  filter(origin == "PDX") %>%
+  group_by(month) %>%
+  summarise(mean_dd = mean(dep_delay, na.rm = TRUE),
+    median_dd = median(dep_delay, na.rm = TRUE)) %>%
+  arrange(desc(mean_dd))
+```
+
+The month of December has the highest average (mean) departure delay.  It also has the highest median departure delay.  Since these distributions are very right-skewed, it makes more sense to use the median than the mean.  It appears that April had the best median departure delay with flights leaving four minutes early.
+
+* * *
+
+### On your own:
+
+#### 1:
+
+```{r oyo1}
+flights <- flights %>% mutate(avg_speed = distance / (air_time / 60))
+head(flights %>% select(avg_speed))
+```
+
+Note that you need to reassign `flights` after doing the mutation here.  Also note that you need to divide `air_time` by 60 to get units of mph.  The first few values of this new column are provided for reference, but are not required.
+
+#### 2:
+
+```{r oyo2}
+flights %>% arrange(desc(avg_speed)) %>%
+  select(avg_speed, tailnum)
+```
+
+The plane with the fastest `avg_speed` corresponds to `tailnum` N464AS.  Googling this `tailnum` yields that this is an Alaska Airlines Boeing 737 [plane](https://www.planespotters.net/airframe/Boeing/737/40714/N464AS-Alaska-Airlines).
+
+#### 3:
+
+```{r oyo3, message=FALSE, warning=FALSE}
+qplot(x = avg_speed,
+  y = distance,
+  data = flights,
+  geom = "point"
+  )
+```
+
+Average speed appears to be positively correlated with distance traveled, but the pattern does not appear to be linear.
+
+#### 4:
+
+```{r oyo4}
+flights %>%
+  group_by(carrier) %>%
+  summarise(max_dd = max(dep_delay, na.rm = TRUE),
+    IQR_ad = IQR(arr_delay, na.rm = TRUE))
+```
+
+This shows that Alaskan had the largest departure delay of almost 26 hours (1553 minutes), but Hawaiian had the largest IQR arrival delay.  
+
+You could say a lot of other things here or just say what was actually calculated.  Either is really OK based on the problem statement.
+
+#### 5:
+
+```{r oyo5plot1, message=FALSE, warning=FALSE}
+sub_flights <- flights %>% filter(carrier == "AA" | carrier == "DL" | carrier == "UA")
+qplot(x = dep_delay,
+  y = arr_delay,
+  data = sub_flights,
+  color = carrier)
+```
+
+
+```{r oyo5plot2, message=FALSE, warning=FALSE}
+qplot(x = dep_delay,
+  y = arr_delay,
+  data = sub_flights,
+  xlim = c(min(sub_flights$dep_delay), 50),
+  ylim = c(min(sub_flights$arr_delay), 200))
+```
+
+Answers will vary here.  Based on this zoomed-in plot, it appears that flights are at around 50% for arriving on time at about 10 minutes of `dep_delay`.

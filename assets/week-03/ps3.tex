@@ -1,0 +1,222 @@
+\documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+\usepackage{enumerate,multirow}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+
+\pagestyle{fancy}
+
+\lhead{\textsc{MATH 141}}
+\chead{\textsc{Problem Set 3}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\title{MATH 141:\\Intro to Probability and Statistics}
+\date{Fall 2017}
+
+\rhead{\textsc{Fall 2017}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+\begin{enumerate}
+\item The American Community 
+Survey is an ongoing survey that provides data every year to give communities the 
+current information they need to plan investments and services. The 2010 American 
+Community Survey estimates that 14.6\% of Americans live below the poverty line, 
+20.7\% speak a language other than English (foreign language) at home, and 4.2\% 
+fall into both categories.
+\begin{enumerate}[(a)]
+\item Are living below the poverty line and speaking a foreign language at home 
+disjoint?
+\item Draw a Venn diagram summarizing the variables and their associated 
+probabilities.
+\item What percent of Americans live below the poverty line and only speak 
+English at home?
+\item What percent of Americans live below the poverty line or speak a foreign 
+language at home?
+\item What percent of Americans live above the poverty line and only speak 
+English at home? 
+\item Is the event that someone lives below the poverty line independent of the 
+event that the person speaks a foreign language at home?
+\end{enumerate}
+
+
+\item In parts~(a) and~(b), 
+identify whether the events are disjoint, independent, or neither (events cannot 
+be both disjoint and independent).
+\begin{enumerate}[(a)]
+\item You and a randomly selected student from your class both earn A's in this 
+course. 
+\item You and your class study partner both earn A's in this course.
+\item If two events can occur at the same time, must they be dependent?
+\end{enumerate}
+
+
+\item Data collected at elementary 
+schools in DeKalb County, GA suggest that each year roughly 25\% of students miss 
+exactly one day of school, 15\% miss 2 days, and 28\% miss 3 or more days due to 
+sickness.
+\begin{enumerate}[(a)]
+\item What is the probability that a student chosen at random doesn't miss any 
+days of school due to sickness this year?
+\item What is the probability that a student chosen at random misses no more than 
+one day?
+\item What is the probability that a student chosen at random misses at least one 
+day?
+\item If a parent has two kids at a DeKalb County elementary school, what is the 
+probability that neither kid will miss any school? Note any assumption you must 
+make to answer this question.
+\item If a parent has two kids at a DeKalb County elementary school, what is the 
+probability that both kids will miss some school, i.e. at least one day? Note any 
+assumption you make.
+\item If you made an assumption in part~(d) or~(e), do you think it was 
+reasonable? If you didn't make any assumptions, double check your earlier answers.
+\end{enumerate}
+
+\item $\mathbb{P}(A) = 0.3$, 
+$\mathbb{P}(B) = 0.7$
+\begin{enumerate}[(a)]
+\item Can you compute $\mathbb{P}(A \text{ and } B)$ if you only know $\mathbb{P}(A)$ and $\mathbb{P}(B)$?
+\item Assuming that events $A$ and $B$ arise from independent random processes,
+\begin{enumerate}[(i)]
+\item what is $\mathbb{P}(A \text{ and } B)$?
+\item what is $\mathbb{P}(A \text{ or } B)$?
+\item what is $\mathbb{P}(A \,|\, B)$?
+\end{enumerate}
+\item If we are given that $\mathbb{P}(A \text{ and } B) = 0.1$, are the random variables giving rise 
+to events $A$ and $B$ independent?
+\item If we are given that $\mathbb{P}(A \text{ and } B) = 0.1$, what is $\mathbb{P}(A \,|\, B)$?
+\end{enumerate}
+
+\item A 2010 Pew Research poll asked 
+1,306 Americans ``From what you've read and heard, is there solid evidence that 
+the average temperature on earth has been getting warmer over the past few 
+decades, or not?". The table below shows the distribution of responses by party 
+and ideology, where the counts have been replaced with relative frequencies.
+\begin{center}
+\begin{tabular}{ll  ccc c} 
+                    &                           & \multicolumn{3}{c}{\textit{Response}} \\
+\cline{3-5}
+                    &                           & Earth is  & Not       & Don't Know    &   \\
+                    &                           & warming   & warming   & Refuse        & Total\\
+\cline{2-6}
+                    & Conservative Republican   & 0.11      & 0.20      & 0.02      & 0.33  \\
+\textit{Party and}  & Mod/Lib Republican        & 0.06      & 0.06      & 0.01      & 0.13 \\
+\textit{Ideology}   & Mod/Cons Democrat         & 0.25      & 0.07      & 0.02      & 0.34 \\
+                    & Liberal Democrat          & 0.18      & 0.01      & 0.01      & 0.20\\
+\cline{2-6}
+                    &Total                      & 0.60      & 0.34      & 0.06      & 1.00
+\end{tabular}
+\end{center}
+\begin{enumerate}[(a)]
+\item Are believing that the earth is warming and being a liberal Democrat mutually 
+exclusive?
+\item What is the probability that a randomly chosen respondent believes the 
+earth is warming or is a liberal Democrat?
+\item What is the probability that a randomly chosen respondent believes the 
+earth is warming given that he is a liberal Democrat?
+\item What is the probability that a randomly chosen respondent believes the 
+earth is warming given that he is a conservative Republican?
+\item Does it appear that whether or not a respondent believes the earth is 
+warming is independent of their party and ideology? Explain your reasoning.
+\item What is the probability that a randomly chosen respondent is a 
+moderate/liberal Republican given that he does not believe that the earth is 
+warming? 
+\end{enumerate}
+
+\item After an introductory 
+statistics course, 80\% of students can successfully construct box plots. Of 
+those who can construct box plots, 86\% passed, while only 65\% of those students 
+who could not construct box plots passed.
+\begin{enumerate}[(a)]
+\item Construct a tree diagram of this scenario.
+\item Calculate the probability that a student is able to construct a box plot 
+if it is known that he passed.
+\end{enumerate}
+
+
+\item Lupus is a medical phenomenon where 
+antibodies that are supposed to attack foreign cells to prevent infections 
+instead see plasma proteins as foreign bodies, leading to a high risk of blood 
+clotting. It is believed that 2\% of the population suffer from this disease. The 
+test is 98\% accurate if a person actually has the disease. The test is 74\% 
+accurate if a person does not have the disease. There is a line from the Fox 
+television show \emph{House} that is often used after a patient tests positive 
+for lupus: ``It's never lupus." Do you think there is truth to this statement? 
+Use appropriate probabilities to support your answer.
+
+
+\end{enumerate}
+
+\textbf{Extra Challenge Problem:} A \emph{chord} of a circle is a straight line 
+segment whose endpoints both lie on the circle. For a fixed circle, what is
+the probability that the length of a randomly drawn chord will exceed that
+circle's radius?
+
+\end{document}

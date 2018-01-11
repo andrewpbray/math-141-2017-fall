@@ -1,0 +1,100 @@
+```{r setup, include=FALSE}
+# DO NOT ALTER CODE IN THIS CHUNK
+knitr::opts_chunk$set(echo = TRUE)
+library(oilabs)
+library(ggplot2)
+```
+
+**Load Hot Hand files:**
+
+```{r}
+data(kobe)
+```
+
+#### Exercise 1
+
+A streak of length one means that there was one `H` then an `M`. A streak of length
+zero is a solitary `M` (directly following another `M`).
+
+#### Exercise 2
+
+```{r ex2, fig.height=3}
+kobe_streak <- calc_streak(kobe$basket)
+qplot(x = factor(kobe_streak), geom = "bar",
+  color = I("black"), fill = I("blue"))
+summary(kobe_streak)
+```
+
+The distribution of Kobe's streak is right-skewed, with a max streak of 4. His
+median streak length was zero.
+
+
+#### Exercise 3
+
+```{r ex3}
+coin_outcomes <- c("heads", "tails")
+set.seed(302)
+sim_unfair_coin <- sample(coin_outcomes, size = 100, replace = TRUE, 
+                          prob = c(0.2, 0.8))
+table(sim_unfair_coin)
+```
+
+Heads came up `r table(sim_unfair_coin)[1]` times.
+
+
+#### Exercise 4
+
+```{r ex4}
+shot_outcomes <- c("H", "M")
+sim_basket <- sample(shot_outcomes, size = 133, replace = TRUE,
+                     prob = c(0.45, 0.55))
+```
+
+
+* * *
+
+## On your own:
+
+#### 1: 
+
+```{r oyo1}
+sim_streak <- calc_streak(sim_basket)
+```
+
+
+#### 2: 
+
+```{r oyo2}
+qplot(x = factor(sim_streak), geom = "bar", color = I("black"), fill = I("blue"))
+summary(sim_streak)
+```
+
+The distribution of streak lengths for the simulated no-hot hands shooter is 
+right-skewed with a typical (median) length of 0 and a maximum of 6. Its spread
+is best measured by the IQR, which is 1.
+
+
+#### 3: 
+
+I would expect the distribution to be similar in shape, spread, and center (e.g.
+still right-skewed), however there will be some variation since we have 
+conducted the simulation afresh and each shot makes a basket probabilistically.
+
+
+#### 4: 
+
+Results may vary, but on average: Kobe's streak length distribution is quite 
+similar to that of the independent shooter (If anything, the independent shooter
+has slightly longer streak lengths). This suggests that Kobe's performance
+is difficult to distinguish for a player with no-hand-hands going on. If he
+_did_ have hot hands, we would have expected to see longer streak lengths
+in Kobe's data, which we did not.
+
+#### Notes:
+
+In the section on probability, we have discussed notions of independence and
+conditional probability. In chapter 1, we also discussed ways to describe 
+distributions both graphically and numerically. We hadn't seen simulation as a 
+technique yet, but now we're seeing it in Ch. 2. The comparison of data to
+a model (in this case the independent shooter model) is in spirit the same
+thing that we've discussed with our model of the shoebill bird.

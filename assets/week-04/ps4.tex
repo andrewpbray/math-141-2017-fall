@@ -1,0 +1,131 @@
+\documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+\usepackage{enumerate,multirow}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+
+\pagestyle{fancy}
+
+\lhead{\textsc{MATH 141}}
+\chead{\textsc{Problem Set 4}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\title{MATH 141:\\Intro to Probability and Statistics}
+\date{Fall 2017}
+
+\rhead{\textsc{Fall 2017}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+\begin{enumerate}
+\item At a university, 13\% of 
+students smoke.
+\begin{enumerate}[(a)]
+\item Calculate the expected number of smokers in a random sample of 100 students 
+from this university.
+\item The university gym opens at 9 am on Saturday mornings. One Saturday morning 
+at 8:55 am there are 27 students outside the gym waiting for it to open. Should 
+you use the same approach from part (a) to calculate the expected number of 
+smokers among these 27 students?
+\end{enumerate}
+
+
+\item Consider the following card game 
+with a well-shuffled deck of cards. If you draw a red card, you win nothing. If 
+you get a spade, you win \$5. For any club, you win \$10 plus an extra \$20 for 
+the ace of clubs.
+\begin{enumerate}[(a)]
+\item Define a random variable that describes the amount you win at this game, with the possible values that it can take along with their probabilities. Also, find 
+the expected winnings for a single game and the standard deviation of the 
+winnings.
+\item What is the maximum amount you would be willing to pay to play this game? 
+Explain your reasoning.
+\end{enumerate}
+
+
+\item An airline charges the following 
+baggage fees: \$25 for the first bag and \$35 for the second. Suppose 54\% of 
+passengers have no checked luggage, 34\% have one piece of checked luggage and 
+12\% have two pieces. We suppose a negligible portion of people check more than 
+two bags.
+\begin{enumerate}[(a)]
+\item Define a random variable that describes the baggage fee revenue for a single passenger, with the possible values that it can take along with their probabilities.  The compute the average revenue per passenger, and 
+compute the corresponding standard deviation.
+\item About how much revenue should the airline expect for a flight of 120 
+passengers? With what standard deviation? Note any assumptions you make and if 
+you think they are justified.
+\end{enumerate}
+
+\item \textbf{Reading} Please read this Wikipedia Article: \url{https://en.wikipedia.org/wiki/Monty_Hall_problem}.Were you surprised/incredulous at Marilyn's solution? If you were to explain the solution to a friend, which of the offered explanations do you find the most succinct/convincing?
+
+\end{enumerate}
+
+
+\end{document}

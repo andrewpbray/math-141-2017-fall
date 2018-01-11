@@ -1,0 +1,16 @@
+---
+title: "Warm Up"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+1. Using the `survey141` data, for students in each year (frosh, soph, etc), form a `dplyr` chain to compute the proportion of students that "walk"ed for transportation.
+2. What is the output of **each link** in the chain?
+3. What proportion of students applied to > 10 colleges?

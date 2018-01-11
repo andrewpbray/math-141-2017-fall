@@ -1,0 +1,152 @@
+---
+title: "Hypothesis Testing II"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+options(digits=2)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+```
+
+
+# Simulation
+
+
+## {.flexbox .vcenter}
+
+Randomization
+
+vs. 
+
+Simulation
+
+
+## The procedure {.build}
+
+```{r prelim, echo=FALSE, message=FALSE}
+library(ggplot2)
+set.seed(53)
+```
+
+1. Let a coin flip represent selecting a random American. Heads = in favor.
+2. Flip a coin 75 times and compute the proportion of heads.
+3. Repeat step 2 many many times, logging the sample proportions
+
+```{r sim, message=FALSE, warning=FALSE}
+library(mosaic)
+p_hats <- do(10000) * rflip(n = 75)
+head(p_hats)
+
+set.seed(24)
+poll <- data.frame(person_id = 1:75,
+                   favor = sample(rep(c("Yes", "No"), times = c(50, 25))))
+```
+
+```{r eval = FALSE, echo = FALSE}
+library(infer)
+d <- poll %>%
+  specify(response = favor) %>%
+  hypothesize(null = "point", p = c("Yes" = .50)) %>%
+  generate(reps = 1000, type = "simulate") %>%
+  calculate(stat = "prop", success = "Yes")
+
+```
+
+
+## The Hypotheses {.build}
+
+Let $p$ be the true proportion of Americans who favor same-sex marriage.
+
+$$H_0: p = 0.5$$
+
+$$H_A: p \ne 0.5$$
+
+
+## The Data
+
+The *observed test statistic* was
+
+$$\hat{p} = 0.66$$
+
+
+## The Null Distribution
+
+```{r dist, warning=FALSE, message=FALSE}
+qplot(x = prop, data = p_hats, geom = "histogram", 
+      binwidth = .0134, fill = I("white"), col = I("darkgreen"))
+```
+
+
+## The Null Distribution
+
+```{r dist2, echo = FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+p_hats <- 
+  p_hats %>%
+  mutate(in_tail = ifelse(prop > .66 | prop < (1 - .66),
+                          TRUE, FALSE))
+qplot(x = prop, data = p_hats, geom = "histogram", fill = in_tail, 
+      binwidth = .0134, fill = I("white"), col = I("darkgreen")) +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("white", "darkgreen")) +
+  geom_vline(xintercept = .66, col = "goldenrod")
+```
+
+```{r, eval=FALSE, echo=FALSE}
+mean(p_hats$in_tail)
+```
+
+$$p.val \approx 0.006$$
+
+
+## The decision {.build}
+
+$$ \alpha = .05; \quad p.val \approx .006 $$
+
+Since
+
+$$ p.val < \alpha$$
+
+we find the data is inconsistent with our model, aka, we reject the null hypothesis.
+
+
+#
+
+
+## Ways to find a Null Distribution {.flexbox .vcenter .build}
+
+1. Randomization
+2. Simulation
+3. Probability Theory
+
+
+## Probability Theory {.build}
+
+Let $X$ be the total number of people in a sample of size 75 that favor same-sex
+marriage if the true population proportion that favor is 0.5.
+
+$x_{obs} = 75 \times 0.66 = 50$
+
+What is $P(X > x_{obs})$?
+
+$$ X \sim Binom(n = 75, p = .5) $$
+
+
+## The Null Distribution
+
+```{r, echo=FALSE, eval=TRUE}
+x1  <- 0:75
+df <- data.frame(x = x1, y = dbinom(x1, 75, 0.5))
+qplot(x, y, data = df) + geom_bar(stat = "identity", col = "darkgreen", fill = "white")
+#(1 - pbinom(50, 75, .5)) * 2
+```
+
+$$p.val = 0.002$$
+
+
+

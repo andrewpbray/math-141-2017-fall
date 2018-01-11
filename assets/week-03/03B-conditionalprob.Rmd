@@ -1,0 +1,102 @@
+---
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+# List of useful packages
+pkg <- c("dplyr", "ggplot2", "knitr")
+
+# Check if packages are not installed and assign the
+# names of the uninstalled packages to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into the current environment
+library(knitr)
+library(dplyr)
+library(ggplot2)
+
+# Set number of digits to display
+options(digits = 2)
+set.seed(26)
+```
+
+
+
+# Honest Liars | An introduction to Conditional Probability
+
+## The context
+
+<img src="../figs/employee-theft.png" alt="theft" width="750">
+
+## Problem Set-up
+
+- Through accounting procedures, it is known that 10% of the employees of a store are stealing.
+
+- This classroom will act as employees and two managers.
+
+## The managers
+
+- First, we need two managers.
+
+    ```{r managers, tidy=TRUE}
+    students <- 1:26
+    ```
+
+-
+    ```{r}
+    sample(students, size = 2)
+    ```
+
+- The rest of you are the employees.
+
+## The employees
+
+You will need two random digits.
+
+>- Digit 1: Last digit of your Reed ID #
+>- Digit 2: 5th digit of your phone num (excluding area code)
+
+Please write these on a sheet of paper.
+
+## Honest or thief?
+
+To simulate 10% of retail employees being thieves, we will use your first random digit:
+
+- If your first digit = 0, write "thief" above your first number.
+- Otherwise, write "honest" above your first number.
+
+
+## Pass or fail? {.build}
+
+Your manager now administers a lie detector test that is 80% accurate;
+there is an 80% chance that thieves will fail the test and an 80% chance that 
+honest folk will pass the test. 
+
+Using your second random digit,
+
+- Thieves
+    - If your digit = 0 or 1, write "pass" above that digit.
+    - Otherwise, write "fail" above that digit.
+- Honest folk
+    - If your digit = 0 or 1, write "fail" above that digit.
+    - Otherwise, write "pass" above that digit.
+    
+    
+## Moment of truth
+
+- Who wrote "fail" on their piece of paper?  Raise your hands.
+
+- Managers:  What percentage of these employees do you think are thieves?
+
+- Those that raised their hands/failed the test, state whether you are honest or a thief.
+
+- What happened here?
+    - The well-known fallacy of reversing the conditional probability!

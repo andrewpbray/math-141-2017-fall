@@ -1,0 +1,355 @@
+---
+title: "Multicollinearity"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+options(digits=3)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+```
+
+
+##  Key concepts
+- Transformations
+- Multicollinearity
+
+## LA Homes {.flexbox .vcenter}
+
+<img src="http://media.mnn.com/assets/images/2011/08/YoungwoodCour2.jpg.560x0_q80_crop-smart.jpg" width="600px" />
+
+What factors help explain the price of a home in Los Angeles?
+
+
+## Model building {.build}
+We'd like to build a model to explain prices of homes in LA as a function of
+the characteristics of those homes.
+
+$$ \widehat{price} = location + size + pool + acreage \ldots $$
+
+1. Statistical question
+2. Data wrangling
+3. Exploratory Data Analysis
+4. Modeling
+5. Interpretation
+
+Recall: *exploratory* vs. *confirmatory* analysis.
+
+
+# Data Wrangling
+## Data wrangling {.build}
+Home price data is available on many websites now, including zillow.com.
+
+```{r load-data}
+LA <- read.csv("http://andrewpbray.github.io/data/LA.csv")
+head(LA)
+```
+
+**Unit of observation**: a home for sale in west LA.  
+**Population**: all homes in west LA.
+
+## {.smaller}
+
+```{r data-2}
+str(LA)
+levels(LA$city)
+```
+
+
+## {.smaller}
+### Recoding `type`
+
+The levels of a categorical variable can be queried and reset using `levels()`.
+
+```{r data-3}
+levels(LA$type)
+levels(LA$type) <- c("unknown", "condo", "sfr")
+levels(LA$type)
+```
+
+
+## {.build .smaller}
+### Recoding `garage`
+
+```{r data-4}
+str(LA)
+```
+
+What's going on with garage?
+
+
+## {.build .smaller}
+### Recoding `garage` 
+
+```{r data-5}
+levels(LA$garage)
+table(LA$garage)
+```
+
+We can combine levels using a similar approach.
+
+```{r data-6}
+levels(LA$garage) <- c("small", "small", "large", "large", "large")
+table(LA$garage)
+```
+
+
+## {.smaller}
+
+```{r}
+str(LA)
+```
+
+What's going on with `pool` and `spa`?
+
+
+## {.build .smaller}
+### Dropping columns
+
+```{r}
+table(LA$pool)
+sum(is.na(LA$spa))
+```
+
+Two variables seem mis-coded/uninformative, so they should be dropped.
+
+```{r}
+LA <- select(LA, -pool, -spa)
+```
+
+
+## Fully wrangled data set
+
+```{r}
+head(LA)
+```
+
+Once the data set is ready to go, save it to a new .csv file.
+
+```{r eval = FALSE}
+write.csv(LA, file = "LA.csv")
+```
+
+
+# Exploratory Data Analysis
+
+## EDA {.build}
+Our goals are to
+
+1. Develop a sense of the *univariate* distributions in terms of center, shape, 
+spread, unusual observations.
+2. Develop a sense of the *bivariate* and *multivariate* distributions and what
+they indicate about the relationship between variables.
+
+
+## Question {.build}
+
+Which of the following at *not* good methods to visualize the distribution
+of a single variable?
+
+1. mosaic plot
+2. density plot
+3. scatterplot
+4. histogram
+5. side-by-side boxplots
+
+
+## Question
+
+Which of the following at *not* good methods to visualize the distribution
+of a single variable?
+
+1. **mosaic plot**
+2. density plot
+3. **scatterplot**
+4. histogram
+5. **side-by-side boxplots**
+
+
+## EDA for `price` {.build}
+
+```{r warning = FALSE, echo = FALSE}
+ggplot(LA, aes(x = price)) +
+  geom_histogram()
+```
+
+
+## Question
+
+How would you visualize the relationship between `price` and `city`?
+
+```{r}
+head(LA)
+```
+
+
+##
+
+How would you visualize the relationship between `price` and `city`?
+
+```{r, echo = FALSE}
+ggplot(LA, aes(x = city, y = price)) +
+  geom_boxplot()
+```
+
+
+## Question
+
+How would you visualize the relationship between `price` and `sqft`?
+
+```{r}
+head(LA)
+```
+
+
+## 
+
+How would you visualize the relationship between `price` and `sqft`?
+
+```{r}
+ggplot(LA, aes(x = sqft, y = price)) +
+  geom_point()
+```
+
+
+## Transformations {.build}
+Highly skewed data (particularly the response) can be very difficult to model
+using least squares regression. A common solution is to consider a transformation
+of the variable.
+
+$$ \widehat{price} \sim sqft $$
+
+versus
+
+$$\widehat{log(price)} \sim log(sqft) $$
+
+
+## {.smaller}
+
+```{r}
+m1 <- lm(price ~ sqft, data = LA)
+m2 <- lm(log(price) ~ log(sqft), data = LA)
+```
+
+```{r echo = FALSE}
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+p1 <- qplot(x = .fitted, y = .stdresid, data = m1, main = "model 1")
+p2 <- qplot(x = .fitted, y = .stdresid, data = m2, main = "model 2")
+
+multiplot(p1, p2, layout = matrix(1:2, ncol = 2, byrow = TRUE))
+```
+
+
+## Transformation
+
+Highly skewed data often leads to invalid models. This can be often be fixed 
+with a transformation, but the interpretations change slightly.
+
+```{r, echo = FALSE}
+summary(m2)$coef
+```
+
+*A one unit increase in the log sqft of a home is associated with a 1.44 unit
+increase in the log price of a home.*
+
+
+# Modeling
+
+## A simple model for price {.build}
+
+$$ \widehat{log(price)} \sim bed $$
+
+```{r}
+m3 <- lm(log(price) ~ bed, data = LA)
+```
+
+What do you expect the *sign* of the slope for `bed` to be?
+
+```{r}
+summary(m3)$coef
+```
+
+
+## A less simple model for price {.build}
+
+$$ \widehat{log(price)} \sim bed + log(sqft) $$
+
+```{r}
+m4 <- lm(log(price) ~ bed + log(sqft), data = LA)
+```
+
+What do you expect the *sign* of the slope for `bed` and `sqft` to be?
+
+```{r}
+summary(m4)$coef
+```
+
+
+## Multicollinearity
+
+Correlation between the predictors has some important consequences:
+
+1. Addition or removal of correlated predictors can lead to slope sign changes.
+2. Correlation between the predictors leads to an inflated $SE(b_1)$.
+
+In sum: multicollinearity leads to **instability** in your estimates.
+
+
+## The SE of the slope {.build}
+
+In the case of a MLR model with two correlated predictors,
+
+$$ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon $$
+
+If $r_{1,2}$ is the correlation between $X_1$ and $X_2$, then.
+
+$$SE(b_i) \propto \frac{\sigma}{1 - r_{1,2}}$$
+
+
+## Multicollinearity
+
+**Take-home lesson**: if your predictors are correlated, then they're carrying
+the same information about the response and your model with have a difficult
+time attributing explanatory power to this variable or that.
+
+One solution: remove one/some of the correlated predictors.

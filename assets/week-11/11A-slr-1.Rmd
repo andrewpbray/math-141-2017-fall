@@ -1,0 +1,64 @@
+---
+title: "Simple Linear Regression"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+options(digits=3)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+```
+
+## Poverty and Graduation
+
+```{r echo = FALSE}
+poverty <- read.delim("../poverty.txt", header = TRUE)
+head(poverty)
+```
+
+
+## Poverty and Graduation
+
+```{r echo = FALSE}
+qplot(x = Poverty, y = Graduates, data = poverty)
+```
+
+
+## Poverty and Graduation
+
+```{r echo=FALSE}
+qplot(x = Poverty, y = Graduates, data = poverty) +
+  geom_text(aes(label = State), hjust = 0, vjust = 0, size = 3)
+```
+
+
+## Poverty and Graduation
+
+```{r echo=FALSE}
+qplot(x = Poverty, y = Graduates, data = poverty) +
+  geom_text(aes(label = State), hjust = 0, vjust = 0, size = 3) +
+  geom_smooth(method='lm',formula=y~x, se = FALSE)
+```
+
+
+## The linear model {.build}
+
+```{r}
+cor(poverty$Graduates, poverty$Poverty)
+lm(Graduates ~ Poverty, data = poverty)
+```
+
+
+## Residual Plot {.build}
+
+```{r echo=FALSE}
+m1 <- lm(Graduates ~ Poverty, data = poverty)
+plot(m1, 1)
+```
+

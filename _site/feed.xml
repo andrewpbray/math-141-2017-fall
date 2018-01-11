@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Intro to Probability and Statistics</title>
+    <description>A first course in probability, statistical reasoning, and applied data analysis at Reed College.
+</description>
+    <link>http://andrewpbray.github.io/math-141/</link>
+    <atom:link href="http://andrewpbray.github.io/math-141/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 21 Feb 2016 22:59:33 -0800</pubDate>
+    <lastBuildDate>Sun, 21 Feb 2016 22:59:33 -0800</lastBuildDate>
+    <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Week Four: Random Variables</title>
+        <description>&lt;p&gt;This week we continue our work with probability and introduce the notions 
+of a random variable, expected value, variance, and several of
+the fundamental probability distributions.&lt;/p&gt;
+
+&lt;h3 id=&quot;monday&quot;&gt;Monday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Random Variables&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/problem-sets/index.html&quot;&gt;PS4&lt;/a&gt; will be collected at the beginning of class next Monday.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;tuesday&quot;&gt;Tuesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;No lab this week.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;wednesday&quot;&gt;Wednesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Bernoulli and Binomial Distributions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;friday&quot;&gt;Friday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Poisson Distribution&lt;/li&gt;
+  &lt;li&gt;Quiz: Probability&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For next time&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Reading: p. 61-81 (Chapter 2)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 15 Feb 2016 01:19:22 -0800</pubDate>
+        <link>http://andrewpbray.github.io/math-141/jekyll/update/2016/02/15/week04.html</link>
+        <guid isPermaLink="true">http://andrewpbray.github.io/math-141/jekyll/update/2016/02/15/week04.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Week Three: Probability</title>
+        <description>&lt;h3 id=&quot;monday&quot;&gt;Monday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Basic Rules of Probability&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/problem-sets/index.html&quot;&gt;PS3&lt;/a&gt; will be collected at the beginning of class next Monday.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For next time&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Reading: p. 306-314 (Appendix A)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;tuesday&quot;&gt;Tuesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/assets/week-03/probability.html&quot; target=&quot;_blank&quot;&gt;Lab 3: Probability&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;wednesday&quot;&gt;Wednesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Independence and Conditional Probability&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For next time&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Reading: p. 315-323 (Appendix A)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;friday&quot;&gt;Friday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Practice: Conditional Probability&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 05 Feb 2016 07:19:22 -0800</pubDate>
+        <link>http://andrewpbray.github.io/math-141/jekyll/update/2016/02/05/week03.html</link>
+        <guid isPermaLink="true">http://andrewpbray.github.io/math-141/jekyll/update/2016/02/05/week03.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Week Two: Describing Data</title>
+        <description>&lt;h3 id=&quot;monday&quot;&gt;Monday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Describing Data&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/problem-sets/index.html&quot;&gt;PS2&lt;/a&gt; will be collected at the beginning of class next Monday.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For next time&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Reading: p. 31-42&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;tuesday&quot;&gt;Tuesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/assets/week-02/intro_to_data.html&quot; target=&quot;_blank&quot;&gt;Lab 2: Intro to Data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;wednesday&quot;&gt;Wednesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Describing Data (continued)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=4B2xOvKFFz4&quot;&gt;The Typical Human video&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/problem-sets/ps1-solutions/&quot; target=&quot;_blank&quot;&gt;PS1 Solutions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--
+- &lt;a href = &quot;/math-141/assets/week-02/ps1solutions.html&quot; target = &quot;_blank&quot;&gt;PS1 Solutions&lt;/a&gt;
+--&gt;
+
+&lt;h3 id=&quot;friday&quot;&gt;Friday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ch. 1 Quiz&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For next time&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Reading: p. 295-306 (Appendix A)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 31 Jan 2016 05:47:06 -0800</pubDate>
+        <link>http://andrewpbray.github.io/math-141/jekyll/update/2016/01/31/week02.html</link>
+        <guid isPermaLink="true">http://andrewpbray.github.io/math-141/jekyll/update/2016/01/31/week02.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Week One: Introduction to Data</title>
+        <description>&lt;h3 id=&quot;monday&quot;&gt;Monday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Taxonomy of Data&lt;/li&gt;
+  &lt;li&gt;From Description to Inference: &lt;a href=&quot;http://andrewpbray.github.io/math-141/assets/week-01/kidney_slides.pdf&quot;&gt;map&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/problem-sets/index.html&quot;&gt;PS1&lt;/a&gt; will be collected at the beginning of class next Monday.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For next time&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=o8JKVadwAO0&quot;&gt;Labs with R Markdown Video&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=DNS7i2m4sB0&quot;&gt;R Markdown in RStudio&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Reading: p. 1-12&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;tuesday&quot;&gt;Tuesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/math-141/assets/week-01/intro_to_r.html&quot; target=&quot;_blank&quot;&gt;Lab 1: Intro to R and RStudio&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;wednesday&quot;&gt;Wednesday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Descriptive vs Inferential Statistics&lt;/li&gt;
+  &lt;li&gt;Principles of Data Collection&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For next time&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Reading: p. 13-30&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;friday&quot;&gt;Friday&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Study Design: sampling, experiments&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 20 Jan 2016 08:53:27 -0800</pubDate>
+        <link>http://andrewpbray.github.io/math-141/jekyll/update/2016/01/20/week01.html</link>
+        <guid isPermaLink="true">http://andrewpbray.github.io/math-141/jekyll/update/2016/01/20/week01.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+  </channel>
+</rss>

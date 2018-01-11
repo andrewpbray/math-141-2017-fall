@@ -1,0 +1,97 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+\usepackage{enumerate,multirow}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+
+\pagestyle{fancy}
+
+\lhead{\textsc{MATH 141}}
+\chead{\textsc{Problem Set 4}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\title{MATH 141:\\Intro to Probability and Statistics}
+\author{Prof. Bray}
+\date{Spring 2016}
+
+\rhead{\textsc{Spring 2016}}
+
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+\begin{enumerate}
+  \item At a university, 13\% of students smoke.
+
+\begin{enumerate}[a.]
+  \item Calculate the expected number of smokers in a random sample of 100 students from this
+university.
+  \item The university gym opens at 9 am on Saturday mornings. One Saturday morning at 8:55
+am there are 27 students outside the gym waiting for it to open. Should you use the
+same approach from part a. to calculate the expected number of smokers among these 27
+students?
+\end{enumerate}
+
+  \item Consider the following card game with a well-shuffled deck of cards. If you draw a red card,
+you win nothing. If you get a spade, you win \$5. For any club, you win \$10 plus an extra \$20
+for the ace of clubs.
+
+\begin{enumerate}[a.]
+  \item Create a table (sometimes called a probability model) that expresses the amount you win at this game in terms of a random
+  variable; i.e. a column for the possible values and another column for their respective
+  probabilities. Also, find the expected winnings for a single game and the standard deviation of the winnings.
+  \item What is the maximum amount you would be willing to pay to play this game? Explain
+your reasoning.
+\end{enumerate}
+
+
+\item An airline charges the following baggage fees: \$25 for the first bag and \$35 for the second.
+Suppose 54\% of passengers have no checked luggage, 34\% have one piece of checked luggage
+and 12\% have two pieces. We suppose a negligible portion of people check more than two bags.
+
+\begin{enumerate}[a.]
+  \item Build a probability model, compute the expected revenue per passenger, and compute the
+corresponding standard deviation.
+  \item About how much revenue should the airline expect for a flight of 120 passengers? With
+what standard deviation? Note any assumptions you make and if you think they are
+justified.
+\end{enumerate}
+
+\item The manufacturer of a low-calorie dairy drink wishes to compare the taste appeal of a new
+formula (formula $B$) with that of the standard formula (formula $A$). Each of four judges is given three
+glasses in random order, two containing formula $A$ and the other containing formula $B$. Between each tasting, all judges' palates are completely cleansed with milk.  Each judge is
+asked to state which glass he or she most enjoyed. Suppose that the two formulas are equally tasty. Let
+$Y$ be the number of judges stating a preference for the new formula.
+
+\begin{enumerate}[a.]
+  \item Which named random variable (Bernoulli, Binomial, Poisson) is $Y$? Why?
+  \item Find the probability mass function for $Y$: $\mathbb{P} (Y = y)$.
+  \item What is the probability that at least three of the four judges state a preference for the new
+formula?
+  \item Calculate the expected value of $Y$ using the definition of expected value of a random variable.
+  \item Calculate the variance of $Y$ using the definition of variance of a random variable.
+  \item Calculate and interpret the standard deviation of $Y$.
+\end{enumerate}  
+  
+\item The number of power surges in an electric grid has a Poisson distribution with a mean of
+one power surge every twelve hours. What is the probability that there will be no more than one power
+surge in a 24-hour period?
+
+\end{enumerate}
+
+\end{document}

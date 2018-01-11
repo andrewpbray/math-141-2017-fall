@@ -1,0 +1,170 @@
+---
+title: "MLR Geometry"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+options(digits=3)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+```
+
+# Geometry of MLR
+
+
+## Ex: Restaurants in NYC
+
+![zagat](http://andrewpbray.github.io/reg/zagat.png)
+
+
+## Ex: Restaurants in NYC {.build}
+
+```{r echo = FALSE}
+nyc <- read.csv("http://andrewpbray.github.io/data/nyc.csv")
+```
+
+```{r}
+nyc[1:3,]
+dim(nyc)
+```
+
+What is the unit of observation?
+
+*A restaurant*
+
+
+## What determines the price of a meal?
+
+Let's look at the relationship between price, food rating, and decor rating.
+
+\[ Price \sim Food + Decor \]
+
+```{r}
+nyc[1:3, ]
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+```
+
+## Model 1: Food + Decor {.smaller}
+
+```{r}
+summary(m1)
+```
+
+
+## The geometry of regression models {.build}
+
+The function for $\hat{y}$ is . . .
+
+- A *line* when you have one continuous $x$.
+- *Parallel lines* when you have one continuous $x_1$ and one categorical $x_2$.
+- *Unrelated lines* when you have one continuous $x_1$, one categorical $x_2$, 
+and an interaction term $x_1 : x_2$.
+
+When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is . . .
+
+*a plane*
+
+
+## 3d plot
+
+```{r echo=FALSE, eval=FALSE}
+library(rgl)
+plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = "steelblue", 
+       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+coefs <- m1$coef
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "lightgray")
+```
+
+
+## Location, location, location
+
+Does the price depend on where the restaurant is located in Manhattan?
+
+\[ Price \sim Food + Decor + East \]
+
+```{r}
+nyc[1:3, ]
+```
+
+
+## Model 2: Food + Decor + East
+
+```{r}
+m2 <- lm(Price ~ Food + Decor + East, data = nyc)
+summary(m2)
+```
+
+
+## The geometry of regression models {.build}
+
+- When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is *a plane*.
+- When you have two continuous predictors $x_1$, $x_2$, and a categorical 
+predictor $x_3$, then your mean function represents *parallel planes*.
+
+
+## 3d Plot
+
+```{r echo = FALSE, eval = FALSE}
+m2 <- lm(Price ~ Food + Decor + East, data = nyc)
+colvec <- rep("steelblue", dim(nyc)[1])
+colvec[nyc$East == 1] <- "orange"
+plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = colvec, 
+       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+coefs <- m2$coef
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "steelblue")
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"] + coefs["East"],
+         alpha = 0.4, col = "orange")
+```
+
+
+## The geometry of regression models {.build}
+
+- When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is *a plane*.
+- When you have two continuous predictors $x_1$, $x_2$, and a categorical 
+predictor $x_3$, then your mean function represents *parallel planes*.
+- When you add in interaction effects, the planes become *tilted*.
+
+
+## Model 3: Food + Decor + East + Decor:East {.smaller}
+
+```{r}
+m3 <- lm(Price ~ Food + Decor + East + Decor:East, data = nyc)
+summary(m3)
+```
+
+
+## 3d plot
+
+```{r echo=FALSE, eval=FALSE}
+colvec <- rep("steelblue", dim(nyc)[1])
+colvec[nyc$East == 1] <- "orange"
+plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = colvec, 
+       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+coefs <- m3$coef
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "steelblue")
+planes3d(coefs["Food"], coefs["Decor"] + coefs["Decor:East"], -1, 
+         coefs["(Intercept)"] + coefs["East"], alpha = 0.4, col = "orange")
+```
+
+
+## Comparing Models
+
+- The `East` term was significant in model 2, suggesting that there is a 
+significant relationship between location and price.
+- That term became nonsignificant when we allowed the slope of `Decor` to vary
+with location, and that difference in slopes was also nonsignificant.
+- Notice that slope estimate for a given variable will almost *always* change 
+depending on the other variables that are in the model.

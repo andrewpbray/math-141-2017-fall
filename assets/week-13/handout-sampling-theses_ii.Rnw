@@ -1,0 +1,48 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+
+\pagestyle{fancy}
+
+\lhead{\textsc{MATH 141}}
+\chead{\textsc{Sampling: Reed Senior Theses Reboot}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\title{MATH 141:\\Intro to Probability and Statistics}
+
+\begin{document}
+
+At the beginning of the semester, your group developed a plan to collect a representative sample of theses from the thesis tower in order to learn about the process of how senior theses are checked out. Revisit that plan now and jot down responses to the following questions.
+
+\begin{enumerate}
+
+\item Read back over your sampling plan. Are you confident that it resulted in a sample that is representative of all theses in the tower? What are its strengths / weaknesses?
+
+\vspace{2.5in}
+
+\item Consider the data that you collected. What sorts of \textbf{visualizations} could you create to learn about the phenomenon of senior thesis checkouts? Please sketch those plots below.
+
+\newpage
+
+\item What sort of \textbf{inferential questions} could you ask of this data? Please list them below, noting the hypotheses of interest (if using the hypothesis testing framework), the parameters of interest (if using the confidence interval framework), and which sampling distributions you'd use (either via approximation or simulation).
+
+\end{enumerate}
+
+\end{document}

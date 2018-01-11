@@ -1,0 +1,58 @@
+\documentclass[10pt]{article}
+
+\input{../brayTeachingStyle}
+
+\begin{document}
+
+\paragraph{Millennials and Marriage}
+In the national debate on same-sex marriage, it is commonly stated that half of all americans favor same-sex marriage.  In 2014, Pew research conducted a poll of millennials (americans born after 1980) and found that 66\% answered yes when asked: ``Do you favor same-sex marriage?''  The poll was a random sample of 75 millennials.  Does this poll provide convincing evidence that the opinion of millennials is different from those of americans at large?
+
+\begin{enumerate}
+  \itemsep1in
+  \item Explain how you could use cards, a coin, or a die to simulate the above statement.
+  \item Write out the \emph{null hypothesis} and the \emph{alternative hypothesis} that are being evaluated, using proper notation.
+  \item What was the value of the observed \emph{test statistic}?
+  \item In the null distribution below (with 10k simulations), label the axes, indicate with a vertical line the location of the observed test statistic, and shade the area under the curve corresponding to the (two-tailed) p-value.
+  
+<<echo=FALSE, warning=FALSE, eval=TRUE, message=FALSE, fig.height=4>>=
+library(mosaic)
+library(ggplot2)
+set.seed(53)
+p_hats <- do(10000) * rflip(n = 75)
+qplot(x = prop, data = p_hats, geom = "bar", xlab = "",
+      binwidth = .0134, fill = I("white"), col = I("darkgreen"))
+@
+
+  \item Using $\alpha = .05$, what is your decision regarding the viability of the null hypothesis?
+  \item Write \emph{one} sentence to President Kroger summarizing what you've learned about the millennials and opinions on same-sex marriage.  
+  \ans
+\end{enumerate}
+
+
+% 
+% \newpage
+% 
+% \subsection*{Instructor's Notes}
+% 
+% <<>>=
+% pdata(0.66, vals = ~prop, data = p_hats, lower.tail = FALSE) * 2
+% @
+% 
+% \paragraph{Card Activity}
+% 
+% \noindent \emph{Learning goals:} gain intuition on establishing and discarding hypotheses based on data, have students generate definition of p-value, insight into why alpha = .05 is used.\\
+% 
+% \noindent \emph{Materials:} Two decks of cards, a prize of some sort.\\
+% 
+% Announce that the class is going to play a simple game where every one will have the chance to win the prize. The rules are announced as follows: the instructor will select one student randomly to be the first player.  They'll pick a card from the shuffled deck.  If they pick a red card, they win the prize.  The game keeps going until someone wins the prize.
+% 
+% Before the class comes in, create a deck of cards that is all black.  Be sure not to show the class while shuffling and fanning the cards for students to choose.  As student after student chooses a black card, you'll start to hear grumbles about how unfair the game is.  They start to get more vocal and articulate after 4 or five cards.
+% 
+% Once they insist the game stop, you can walk through what happened by writing ``null hypothesis: fair deck; P(red) = 0.5", with the appropriate alternative hypothesis.  In asking why they threw out the null, you'll be able to get them to define a p-value, which you can define formally on the board.  Then you can put up the following probabilities and discuss how .05 is about where they threw out the null.
+% 
+% <<>>=
+% dbinom(0,c(1:5),.5)
+% @
+% 
+
+\end{document}

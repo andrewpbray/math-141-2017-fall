@@ -1,0 +1,66 @@
+---
+title: "Poisson Regression"
+output:
+  html_document:
+    css: ../lab.css
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+library(dplyr)
+library(ggplot2)
+```
+
+## Senior theses data
+
+At the beginning of this semester, our class headed into the thesis tower to draw a sample of data so that we could learn about the patterns of senior theses being checked out. You can revisit the data that you entered here:
+
+[](https://docs.google.com/spreadsheets/d/1g9xyUSpBY5lSvXEOX9Kr4tkFRMLsV6fVVWX-CWWzuDc/edit#gid=1588086687)
+
+I've gone through and aggregated all of your data in the sheet called "sample_theses". This sheet was saved as a `.csv` file and can be read into R using:
+
+```{r}
+theses <- read.csv("https://www.dropbox.com/s/ontvhfnnz9nl3xd/sample_theses.csv?dl=1")
+```
+
+
+## Exploratory Data Analysis
+
+We touched on this in lecture, but here is your chance to play along.
+
+1. Construct two plots of this data that are interesting to you. Describe what you see.
+
+## Modeling checkouts over time
+
+Really the question that we're most interested in is:
+
+**Question 3**: What is the relationship between the age of a thesis and the number of checkouts?
+
+2. Respond to this question by building an OLS linear model to predict the number of checkouts using the age of the thesis (note: you'll need to first mutate an age variable). Visualize the model by adding the following layer to your scatterplot:
+
+```{r eval = FALSE}
+stat_function(fun = function(age) {coef(m1)[1] + coef(m1)[2] * age},
+                color = "red")
+```
+
+
+3. Fit a second model using Poisson regression. For this model, restrict the data to theses written since 1994. Plot the model on top of the scatterplot using `stat_function()` as above.
+
+
+## Ground truth
+
+The following questions concern the second data set, this one from the library.
+
+```{r}
+library <- read.csv("https://www.dropbox.com/s/41645e7d56i6al3/library_theses.csv?dl=1")
+```
+
+4. What is the average number of checkouts for theses written since 1994? How does that compare with the number from our sampled data set?
+
+5. Fit a Poisson regression model using only the theses written since 1994. Plot this model over a scatter plot of the data.
+
+6. How does your model from the sampled data compare to data from the library? What conclusions does this lead you to draw about our sampling procedure and how theses are checked out over time?
